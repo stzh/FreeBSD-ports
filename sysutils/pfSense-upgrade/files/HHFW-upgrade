@@ -1,9 +1,9 @@
 #!/bin/sh
 #
-# MyFirewall-upgrade
+# HHFW-upgrade
 #
-# part of MyFirewall (https://www.xxx.org)
-# Copyright (c) 2015-2016 xxx Communications, LLC (xxx)
+# part of HHFW (https://www.xxx.org)
+# Copyright (c) 2019-2049 xxx Communications, LLC (xxx)
 # All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -515,7 +515,7 @@ pkg_upgrade() {
 
 		pkg_upgrade_repo
 
-		# If a new version of MyFirewall-upgrade is available, upgrade it
+		# If a new version of HHFW-upgrade is available, upgrade it
 		# and return a special code 99 used by wrapper to run newer
 		# version again using the same parameters
 		if [ "$(compare_pkg_version ${product}-upgrade)" != "=" ]; then
@@ -642,7 +642,7 @@ pkg_upgrade() {
 			    [ -s /boot/loader.conf ]; then
 				cp -fp /boot/loader.conf /tmp/loader.conf.backup
 			fi
-			# Force upgrade MyFirewall-rc together with kernel. It's
+			# Force upgrade HHFW-rc together with kernel. It's
 			# failing for some reason on armv6 even with the proper
 			# dependency version registered
 			if upgrade_available ${product}-rc; then
@@ -982,7 +982,7 @@ pkg_install() {
 	_exec "pkg-static clean" "Cleaning up cache" mute ignore_result
 }
 
-# Reinstall every MyFirewall-pkg-* package
+# Reinstall every HHFW-pkg-* package
 pkg_reinstall_all() {
 	for _package in $(_pkg query -e '%a == 0' %n); do
 		case ${_package} in "${pkg_prefix}"* )
@@ -1012,7 +1012,7 @@ pkg_delete() {
 	    ignore_result
 }
 
-# Delete every MyFirewall-pkg-* package
+# Delete every HHFW-pkg-* package
 pkg_delete_all() {
 	for _package in $(pkg-static query -e '%a == 0' %n); do
 		case ${_package} in "${pkg_prefix}"* )
@@ -1123,9 +1123,9 @@ export ASSUME_ALWAYS_YES=true
 export FETCH_TIMEOUT=5
 export FETCH_RETRY=2
 
-export product=$(php -n /usr/local/sbin/read_global_var product_name MyFirewall)
+export product=$(php -n /usr/local/sbin/read_global_var product_name HHFW)
 export pkg_prefix=$(php -n /usr/local/sbin/read_global_var pkg_prefix \
-    MyFirewall-pkg-)
+    HHFW-pkg-)
 export platform=$(cat /etc/platform)
 
 USE_MFS_TMPVAR=$(read_xml_tag.sh boolean system/use_mfs_tmpvar)

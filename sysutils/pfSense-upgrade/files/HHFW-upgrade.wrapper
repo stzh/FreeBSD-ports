@@ -1,8 +1,8 @@
 #!/bin/sh
 #
-# MyFirewall-upgrade.wrapper
+# HHFW-upgrade.wrapper
 #
-# part of MyFirewall (https://www.xxx.org)
+# part of HHFW (https://www.xxx.org)
 # Copyright (c) 2015-2016 xxx Communications, LLC (xxx)
 # All rights reserved.
 #
@@ -18,11 +18,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-MyFirewall_upgrade=$(realpath -q $(dirname $0)/../libexec/$(basename $0))
+HHFW_upgrade=$(realpath -q $(dirname $0)/../libexec/$(basename $0))
 lockfile="/tmp/$(basename $0).lock"
 
-if [ ! -f ${MyFirewall_upgrade} ]; then
-	echo "ERROR: Unable to find ${MyFirewall_upgrade}"
+if [ ! -f ${HHFW_upgrade} ]; then
+	echo "ERROR: Unable to find ${HHFW_upgrade}"
 	exit 1
 fi
 
@@ -39,13 +39,13 @@ EX_OSERR=71	# A system call (e.g., fork(2)) failed unexpectedly.
 EX_SOFTWARE=70	# The command did not exit normally, but may have been signaled
 		# or stopped.
 
-# Special return code to detect when MyFirewall-upgrade was upgraded and must
+# Special return code to detect when HHFW-upgrade was upgraded and must
 # be called again to make sure latest version is running
 EX_UPGRADE=99
 
 while true; do
 	unset run_again
-	/usr/bin/lockf -s -t 5 ${lockfile} ${MyFirewall_upgrade} "$@"
+	/usr/bin/lockf -s -t 5 ${lockfile} ${HHFW_upgrade} "$@"
 	rc=$?
 
 	unset error
